@@ -1,8 +1,14 @@
 import 'package:connector/constants.dart';
+import 'package:connector/firebase_options.dart';
+import 'package:connector/screens/main_auth_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:connector/theme.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -30,30 +36,9 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: lightTheme,
       darkTheme: darkTheme,
-      title: 'My First Flutter App',
+      title: 'ESSENCE Connector',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 85,
-          title: Image.asset(
-            'assets/images/esd_logo.png',
-            height: 70,
-          ),
-          actions: [
-            IconButton(
-              icon: const CircleAvatar(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SettingsView()),
-                );
-              },
-            ),
-          ],
-          centerTitle: false,
-        ),
-        body: const DashView(),
-      ),
+      home: const MainAuthView(),
     );
   }
 }

@@ -1,0 +1,35 @@
+{
+  "flutter": {
+    "platforms": {
+      "macos": {
+        "default": {
+          "projectId": "essence-connector",
+          "appId": "1:261028981185:ios:c5bc32438289f0974ea740",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "essence-connector",
+          "configurations": {
+            "macos": "1:261028981185:ios:c5bc32438289f0974ea740",
+            "web": "1:261028981185:web:0577d5c35b63e7104ea740",
+            "windows": "1:261028981185:web:84d77bc8361b67314ea740"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "us-east1"
+    }
+  }
+}

@@ -18,12 +18,10 @@ class ThemeBuilder {
           tertiaryContainer: Colors.white,
           error: Color.fromARGB(255, 255, 107, 97),
           onError: Colors.white,
-          background: Colors.white,
-          onBackground: Colors.black,
           surface: Color.fromARGB(255, 230, 230, 230),
           onSurface: Colors.black,
         ),
-        textTheme: GoogleFonts.interTextTheme(),
+        textTheme: GoogleFonts.jetBrainsMonoTextTheme(),
       );
 
   static ThemeData get darkTheme => ThemeData(
@@ -42,11 +40,9 @@ class ThemeBuilder {
           tertiaryContainer: Colors.white,
           error: Color.fromARGB(255, 255, 107, 97),
           onError: Colors.white,
-          background: Color.fromARGB(255, 18, 18, 18),
-          onBackground: Colors.white,
           surface: Color.fromARGB(255, 31, 31, 31),
           onSurface: Colors.white,
         ),
-        textTheme: GoogleFonts.interTextTheme(),
+        textTheme: GoogleFonts.jetBrainsMonoTextTheme(),
       );
 }
