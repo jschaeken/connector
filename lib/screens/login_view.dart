@@ -61,65 +61,129 @@ class _LoginViewState extends State<LoginView> {
     }
   }
 
+  Offset _mousePosition = const Offset(0, 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            children: [
-              Image.network(
-                'https://i.ibb.co/SnTcdPx/image.png',
-                width: 70,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(width: double.infinity, height: 20),
-              const Text(
-                'Connector',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 0, 104, 153),
-                  spreadRadius: 50,
-                  blurRadius: 100,
-                  offset: Offset(0, 3),
-                ),
-              ],
+      body: MouseRegion(
+        onHover: (event) {
+          setState(() {
+            debugPrint('Mouse position: ${event.localPosition}');
+            _mousePosition = event.localPosition;
+          });
+        },
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            ColorFadeBox(
+              position: _mousePosition,
             ),
-            child: Column(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomTextField(
-                  focusNode: clientCodeFocusNode,
-                  controller: clientCodeController,
-                  labelText: 'client_id',
+                Column(
+                  children: [
+                    Image.network(
+                      'https://i.ibb.co/SnTcdPx/image.png',
+                      width: 70,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(width: double.infinity, height: 20),
+                    const Text(
+                      'Connector',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 40),
-                CustomTextField(
-                  controller: passkeyController,
-                  labelText: 'passkey',
+                SizedBox(
+                  width: 400,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          CustomTextField(
+                            focusNode: clientCodeFocusNode,
+                            controller: clientCodeController,
+                            labelText: 'client_id',
+                          ),
+                          const SizedBox(height: 40),
+                          CustomTextField(
+                            controller: passkeyController,
+                            labelText: 'passkey',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                LoginButton(
+                  onTap: () {
+                    _loginTapped();
+                  },
                 ),
               ],
             ),
-          ),
-          LoginButton(
-            onTap: () {
-              _loginTapped();
-            },
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class ColorFadeBox extends StatelessWidget {
+  const ColorFadeBox({
+    super.key,
+    required this.position,
+  });
+
+  final Offset position;
+
+  Offset get _mousePosition => position;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: ((_mousePosition.dx / 8) - 50),
+      top: ((_mousePosition.dy / 8) - 50),
+      child: Animate(
+        onPlay: (controller) => controller.repeat(reverse: true),
+      )
+          .custom(
+              duration: 5000.ms,
+              curve: Curves.linear,
+              builder: (context, value, child) {
+                final color = HSVColor.lerp(
+                  const HSVColor.fromAHSV(1.0, 0.0, 1.0, 1.0),
+                  const HSVColor.fromAHSV(1.0, 360.0, 1.0, 1.0),
+                  value,
+                )!
+                    .toColor();
+                return Container(
+                  width: 100 * (1 - value + .3),
+                  height: 100 * (1 - value + .3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    boxShadow: [
+                      BoxShadow(
+                        color: color,
+                        spreadRadius: 50,
+                        blurRadius: 100,
+                        offset: Offset(
+                            _mousePosition.dx - 50, _mousePosition.dy - 50),
+                      ),
+                    ],
+                  ),
+                );
+              })
+          .fadeIn(),
     );
   }
 }
