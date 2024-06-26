@@ -5,7 +5,7 @@ class ThemeBuilder {
   static ThemeData get lightTheme => ThemeData(
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color.fromARGB(255, 0, 0, 0),
+          primary: Color.fromARGB(255, 5, 109, 0),
           onPrimary: Color(0xFFFFFFFF),
           primaryContainer: Color.fromARGB(255, 0, 179, 39),
           onPrimaryContainer: Color(0xFFFFFFFF),

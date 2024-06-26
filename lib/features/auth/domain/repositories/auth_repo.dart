@@ -7,4 +7,6 @@ abstract class AuthRepo {
       String email, String password);
   // Stream get authStateChanges;
   Stream<ConnectorUser?> get authStateChangesStream;
+  Future<Either<Failure, void>> logoutCurrentUser();
+  Future<Either<Failure, void>> getCurrentUser();
 }

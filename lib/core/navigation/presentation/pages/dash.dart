@@ -1,9 +1,25 @@
 import 'package:connector/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:connector/features/auth/presentation/pages/auth_settings_view.dart';
+import 'package:connector/features/automations/presentation/pages/automations_view.dart';
+import 'package:connector/features/design/presentation/pages/design_view.dart';
+import 'package:connector/features/engage/presentation/pages/engage_view.dart';
 import 'package:connector/features/insights/presentation/pages/insights.dart';
-import 'package:connector/injection_container.dart';
-import 'package:connector/main.dart';
+import 'package:connector/features/integrations/presentation/pages/integrations_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+enum DashViewType {
+  design('DESIGN', DesignView()),
+  enagage('ENGAGE', EngageView()),
+  insights('INSIGHTS', InsightsView()),
+  automation('AUTOMATION', AutomationView()),
+  integrations('INTEGRATIONS', IntegrationsView()),
+  settings('SETTINGS', SettingsView());
+
+  const DashViewType(this.name, this.child);
+  final String name;
+  final Widget child;
+}
 
 class Dash extends StatelessWidget {
   const Dash({super.key});
@@ -37,6 +53,22 @@ class Dash extends StatelessWidget {
           ),
         ),
         actions: [
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              switch (state.runtimeType) {
+                case const (AuthAuthenticated):
+                  return Text(
+                    (state as AuthAuthenticated).user.email ?? '',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  );
+                default:
+                  return const SizedBox.shrink();
+              }
+            },
+          ),
           IconButton(
             icon: const CircleAvatar(),
             onPressed: () {
@@ -143,132 +175,6 @@ class DashViewSelector extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-enum DashViewType {
-  design('DESIGN', DesignView()),
-  enagage('ENGAGE', EngageView()),
-  insights('INSIGHTS', InsightsView()),
-  automation('AUTOMATION', AutomationView()),
-  integrations('INTEGRATIONS', IntegrationsView()),
-  settings('SETTINGS', SettingsView());
-
-  const DashViewType(this.name, this.child);
-  final String name;
-  final Widget child;
-}
-
-class DesignView extends StatelessWidget {
-  const DesignView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Design View',
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-      ),
-    );
-  }
-}
-
-class SettingsView extends StatelessWidget {
-  const SettingsView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        automaticallyImplyLeading: true,
-      ),
-      body: BlocProvider(
-        create: (context) => sl<AuthBloc>(),
-        child: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Builder(builder: (context) {
-                  if (state is AuthAuthenticated) {
-                    return Text(
-                      'Logged in as: ${state.user.email}',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    );
-                  } else {
-                    return Text('state is: ${state.runtimeType}',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                            ));
-                  }
-                }),
-                const SizedBox(height: 20),
-                Center(
-                  child: Text(
-                    'Settings View',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class IntegrationsView extends StatelessWidget {
-  const IntegrationsView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Integrations View',
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-      ),
-    );
-  }
-}
-
-class AutomationView extends StatelessWidget {
-  const AutomationView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Text(
-      'Automation View',
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-    ));
-  }
-}
-
-class EngageView extends StatelessWidget {
-  const EngageView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Engage View',
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
       ),
     );
   }

@@ -18,4 +18,14 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Stream<ConnectorUser?> get authStateChangesStream =>
       dataSource.authStateChangesStream;
+
+  @override
+  Future<Either<Failure, void>> logoutCurrentUser() async {
+    return await dataSource.logoutCurrentUser();
+  }
+
+  @override
+  Future<Either<Failure, void>> getCurrentUser() async {
+    return await dataSource.getCurrentUser();
+  }
 }

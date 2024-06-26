@@ -1,10 +1,10 @@
 import 'package:connector/core/error/failures.dart';
 import 'package:connector/core/usecases/usecase.dart';
-import 'package:connector/features/auth/data/datasources/auth_datasource.dart';
+import 'package:connector/features/auth/domain/repositories/auth_repo.dart';
 import 'package:dartz/dartz.dart';
 
 class LoginWithEmailAndPassword implements UseCase<void, EmailPasswordParams> {
-  final AuthDataSource repo;
+  final AuthRepo repo;
 
   LoginWithEmailAndPassword({required this.repo});
 

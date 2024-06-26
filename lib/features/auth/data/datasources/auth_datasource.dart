@@ -8,9 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class AuthDataSource {
   Future<Either<Failure, void>> loginWithEmailandPassword(
       String email, String password);
-
-  // authStateChangesStream
   Stream<ConnectorUser?> get authStateChangesStream;
+  Future<Either<Failure, void>> logoutCurrentUser();
+  Future<Either<Failure, void>> getCurrentUser();
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
@@ -47,5 +47,33 @@ class AuthDataSourceImpl implements AuthDataSource {
         return ConnectorUser(uid: user.uid, email: user.email);
       }
     });
+  }
+
+  @override
+  Future<Either<Failure, void>> logoutCurrentUser() async {
+    try {
+      await instance.signOut();
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(ServerFailure(e.message ?? ''));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> getCurrentUser() async {
+    try {
+      final user = instance.currentUser;
+      if (user == null) {
+        return const Left(ServerFailure('User not found'));
+      } else {
+        return const Right(null);
+      }
+    } on FirebaseException catch (e) {
+      return Left(ServerFailure(e.message ?? ''));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 }
