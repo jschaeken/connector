@@ -144,6 +144,7 @@ class _LoginViewState extends State<LoginView> {
                               CustomTextField(
                                 controller: passkeyController,
                                 labelText: 'passkey',
+                                isObscureText: true,
                                 onSubmitted: () {
                                   _loginTapped(
                                     clientCodeController.text,

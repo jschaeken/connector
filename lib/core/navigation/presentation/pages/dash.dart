@@ -1,3 +1,4 @@
+import 'package:connector/core/common/widgets/shared_widgets.dart';
 import 'package:connector/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:connector/features/auth/presentation/pages/auth_settings_view.dart';
 import 'package:connector/features/automations/presentation/pages/automations_view.dart';
@@ -9,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum DashViewType {
-  design('DESIGN', DesignView()),
+  // design('DESIGN', DesignView()),
   enagage('ENGAGE', EngageView()),
   insights('INSIGHTS', InsightsView()),
-  automation('AUTOMATION', AutomationView()),
-  integrations('INTEGRATIONS', IntegrationsView()),
+  // automation('AUTOMATION', AutomationView()),
+  // integrations('INTEGRATIONS', IntegrationsView()),
   settings('SETTINGS', SettingsView());
 
   const DashViewType(this.name, this.child);
@@ -40,14 +41,14 @@ class Dash extends StatelessWidget {
                 isDarkMode
                     ? 'assets/brand_images/esd_logo_white.png'
                     : 'assets/brand_images/esd_logo_black.png',
-                height: 10,
+                height: 11,
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 18),
               Image.asset(
                 isDarkMode
                     ? 'assets/brand_images/connector_white.png'
                     : 'assets/brand_images/connector_black.png',
-                height: 25,
+                height: 20,
               ),
             ],
           ),
@@ -100,13 +101,16 @@ class _DashViewState extends State<DashView> {
     });
   }
 
-  DashViewType selectedDashView = DashViewType.design;
+  DashViewType selectedDashView = DashViewType.values.first;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
+          // Divider Line
+          const FadeDivider(),
+
           // DashView Selector Tabs
           SizedBox(
             height: 65,
@@ -127,54 +131,17 @@ class _DashViewState extends State<DashView> {
                     ],
                   ),
                 ),
-                const Spacer(flex: 2),
+                const Spacer(flex: 4),
               ],
             ),
           ),
+          const FadeDivider(),
 
           // DashView Content
           Expanded(
             child: selectedDashView.child,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DashViewSelector extends StatelessWidget {
-  const DashViewSelector({
-    super.key,
-    required this.view,
-    required this.onTap,
-    this.isSelected = false,
-  });
-
-  final DashViewType view;
-  final Function(DashViewType dashViewType) onTap;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: Material(
-        color: isSelected ? Theme.of(context).colorScheme.primary : null,
-        child: InkWell(
-          onTap: () => onTap(view),
-          child: Container(
-            height: double.infinity,
-            alignment: Alignment.center,
-            child: Text(
-              view.name,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w100,
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-          ),
-        ),
       ),
     );
   }

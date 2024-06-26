@@ -5,12 +5,14 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.labelText,
+    this.isObscureText = false,
     this.onSubmitted,
     this.focusNode,
   });
 
   final TextEditingController controller;
   final String labelText;
+  final bool isObscureText;
   final VoidCallback? onSubmitted;
   final FocusNode? focusNode;
 
@@ -26,6 +28,7 @@ class CustomTextField extends StatelessWidget {
         focusNode: focusNode,
         controller: controller,
         cursorColor: Colors.white,
+        obscureText: isObscureText,
         onSubmitted: (_) {
           onSubmitted?.call();
         },
