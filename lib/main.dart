@@ -1,6 +1,7 @@
 import 'package:connector/core/common/data/firebase_options.dart';
 import 'package:connector/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:connector/features/auth/presentation/pages/main_auth_view.dart';
+import 'package:connector/features/engage/presentation/bloc/engage_bloc.dart';
 import 'package:connector/injection_container.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<AuthBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => sl<AuthBloc>()),
+        BlocProvider(create: (context) => sl<EngageBloc>()),
+      ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
         theme: lightTheme,

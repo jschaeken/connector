@@ -9,4 +9,6 @@ abstract class AuthRepo {
   Stream<ConnectorUser?> get authStateChangesStream;
   Future<Either<Failure, void>> logoutCurrentUser();
   Future<Either<Failure, void>> getCurrentUser();
+  ConnectorUser? get user;
+  String? get projectPrefixId;
 }

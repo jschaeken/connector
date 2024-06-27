@@ -7,11 +7,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class AuthDataSource {
-  Future<Either<Failure, void>> loginWithEmailandPassword(
+  Future<Either<Failure, ConnectorUser>> loginWithEmailandPassword(
       String email, String password);
   Stream<ConnectorUser?> get authStateChangesStream;
   Future<Either<Failure, void>> logoutCurrentUser();
-  Future<Either<Failure, void>> getCurrentUser();
+  Future<Either<Failure, ConnectorUser>> getCurrentUser();
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
@@ -20,7 +20,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl({required this.instance});
 
   @override
-  Future<Either<Failure, void>> loginWithEmailandPassword(
+  Future<Either<Failure, ConnectorUser>> loginWithEmailandPassword(
       String email, String password) async {
     try {
       final user = await instance.signInWithEmailAndPassword(
@@ -29,8 +29,13 @@ class AuthDataSourceImpl implements AuthDataSource {
       );
       log('User: $user');
 
-      return const Right(
-        null,
+      return Right(
+        ConnectorUser(
+          uid: user.user!.uid,
+          email: user.user!.email,
+          displayName: user.user!.displayName,
+          photoURL: user.user!.photoURL,
+        ),
       );
     } on FirebaseException catch (e, s) {
       debugPrint('Firebase Error: ${e.code}, Stack trace: $s');
@@ -85,13 +90,20 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<Either<Failure, void>> getCurrentUser() async {
+  Future<Either<Failure, ConnectorUser>> getCurrentUser() async {
     try {
       final user = instance.currentUser;
       if (user == null) {
         return const Left(ServerFailure('User not found'));
       } else {
-        return const Right(null);
+        return Right(
+          ConnectorUser(
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          ),
+        );
       }
     } on FirebaseException catch (e) {
       return Left(ServerFailure(e.message ?? ''));

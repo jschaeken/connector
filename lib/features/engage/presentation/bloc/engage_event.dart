@@ -6,3 +6,13 @@ abstract class EngageEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class SendPushEvent extends EngageEvent {
+  final String message;
+  final String? segment;
+
+  const SendPushEvent({required this.message, this.segment});
+
+  @override
+  List<Object> get props => [message, segment ?? ''];
+}
