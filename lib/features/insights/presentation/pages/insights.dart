@@ -2,6 +2,7 @@ import 'package:connector/core/common/theme/theme.dart';
 import 'package:connector/features/insights/domain/entities/insight.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class InsightsView extends StatefulWidget {
   const InsightsView({super.key});
@@ -16,7 +17,7 @@ class _InsightsViewState extends State<InsightsView> {
   @override
   void initState() {
     super.initState();
-    var lineChartData = ThemeBuilder.getLineChartData(
+    var lineChartData1 = ThemeBuilder.getLineChartData(
       ctx: context,
       beforeAfterValueModifierBottom: ['', ''],
       beforeAfterValueModifierLeft: ['\$', 'k'],
@@ -65,6 +66,106 @@ class _InsightsViewState extends State<InsightsView> {
         31: 31.2,
       },
     );
+    var lineChartData2 = ThemeBuilder.getLineChartData(
+      ctx: context,
+      beforeAfterValueModifierBottom: ['', ''],
+      beforeAfterValueModifierLeft: ['\$', 'k'],
+      xAxisMax: 31,
+      xAxisMin: 0,
+      yAxisMax: 50,
+      yAxisMin: 0,
+      yAxisInterval: 10,
+      xAxisInterval: 1,
+      gradientColors: [
+        Colors.red.withOpacity(.4),
+        Colors.orange.withOpacity(.6)
+      ],
+      data: {
+        0: 1.9,
+        1: 2.9,
+        2: 4.1,
+        3: 5.1,
+        4: 6.2,
+        5: 7.0,
+        6: 7.6,
+        7: 8.2,
+        8: 8.6,
+        9: 9.3,
+        10: 9.6,
+        11: 10.4,
+        12: 11.4,
+        13: 12.1,
+        14: 13.5,
+        15: 14.2,
+        16: 14.6,
+        17: 15.8,
+        18: 16.0,
+        19: 17.4,
+        20: 18.0,
+        21: 19.3,
+        22: 19.6,
+        23: 20.7,
+        24: 21.9,
+        25: 22.8,
+        26: 23.2,
+        27: 23.8,
+        28: 25.0,
+        29: 25.7,
+        30: 26.0,
+        31: 27.2,
+      },
+    );
+
+    var lineChartData3 = ThemeBuilder.getLineChartData(
+      ctx: context,
+      beforeAfterValueModifierBottom: ['', ''],
+      beforeAfterValueModifierLeft: ['\$', 'k'],
+      xAxisMax: 31,
+      xAxisMin: 0,
+      yAxisMax: 50,
+      yAxisMin: 0,
+      yAxisInterval: 10,
+      xAxisInterval: 1,
+      gradientColors: [
+        Colors.purple.withOpacity(.4),
+        Colors.yellow.withOpacity(.6)
+      ],
+      data: {
+        0: 0.6,
+        1: 1.7,
+        2: 2.9,
+        3: 3.5,
+        4: 4.3,
+        5: 4.6,
+        6: 5.5,
+        7: 6.2,
+        8: 7.1,
+        9: 7.6,
+        10: 8.9,
+        11: 9.8,
+        12: 10.1,
+        13: 10.3,
+        14: 11.8,
+        15: 12.2,
+        16: 12.4,
+        17: 13.4,
+        18: 13.7,
+        19: 14.8,
+        20: 15.1,
+        21: 15.6,
+        22: 17.0,
+        23: 18.4,
+        24: 19.2,
+        25: 20.1,
+        26: 20.3,
+        27: 21.3,
+        28: 22.3,
+        29: 22.8,
+        30: 23.8,
+        31: 24.0,
+      },
+    );
+
     insightDataDemo = [
       Insight(
         id: '1',
@@ -73,7 +174,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '4,934',
         changeValue: '+126%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '2',
@@ -82,7 +183,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '\$15,200',
         changeValue: '+34%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData2,
       ),
       Insight(
         id: '3',
@@ -91,7 +192,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '789',
         changeValue: '+50%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData3,
       ),
       Insight(
         id: '4',
@@ -100,7 +201,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '3',
         changeValue: '-75%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '5',
@@ -109,7 +210,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '2.4',
         changeValue: '+20%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '6',
@@ -118,7 +219,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '15 mins',
         changeValue: '+5%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '6',
@@ -127,7 +228,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '15 mins',
         changeValue: '+5%',
         changeColorHex: '0xFF4CAF50', // Green for growth\
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '7',
@@ -136,7 +237,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '4.2',
         changeValue: '+0.1',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '8',
@@ -145,7 +246,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '3.8%',
         changeValue: '+15%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '9',
@@ -154,7 +255,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '1.2%',
         changeValue: '-20%',
         changeColorHex: '0xFFE57373',
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '10',
@@ -163,7 +264,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '8.4',
         changeValue: '+30%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
       Insight(
         id: '11',
@@ -172,7 +273,7 @@ class _InsightsViewState extends State<InsightsView> {
         mainValue: '67%',
         changeValue: '+5%',
         changeColorHex: '0xFF4CAF50', // Green for growth
-        chartData: lineChartData,
+        chartData: lineChartData1,
       ),
     ];
   }
@@ -187,10 +288,11 @@ class _InsightsViewState extends State<InsightsView> {
         Flexible(
           child: GridView.builder(
             itemCount: 10,
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             itemBuilder: (context, index) {
               return InsightCard(
                 insightData: insightDataDemo[index],
+                delayIndex: ((index ~/ 3) + 1) * 20,
               );
             },
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -208,10 +310,12 @@ class _InsightsViewState extends State<InsightsView> {
 
 class InsightCard extends StatelessWidget {
   final Insight insightData;
+  final int delayIndex;
 
   const InsightCard({
     super.key,
     required this.insightData,
+    required this.delayIndex,
   });
 
   @override
@@ -297,6 +401,15 @@ class InsightCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(
+          duration: const Duration(milliseconds: 600),
+        )
+        .moveY(
+          curve: Curves.easeInOut,
+          end: 0.0,
+          begin: (20 + delayIndex).toDouble(),
+        );
   }
 }

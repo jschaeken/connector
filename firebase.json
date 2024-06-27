@@ -28,6 +28,7 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "site": "econnector",
     "frameworksBackend": {
       "region": "us-east1"
     }
