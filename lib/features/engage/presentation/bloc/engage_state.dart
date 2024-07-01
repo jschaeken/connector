@@ -9,7 +9,7 @@ abstract class EngageState extends Equatable {
 
 class EngageInitial extends EngageState {}
 
-class EngageLoading extends EngageState {}
+class PushSending extends EngageState {}
 
 class PushSentSuccess extends EngageState {
   final String message;

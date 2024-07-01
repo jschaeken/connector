@@ -13,6 +13,7 @@ import 'package:connector/features/engage/data/repositories/engage_repo_impl.dar
 import 'package:connector/features/engage/domain/repositories/engage_repo.dart';
 import 'package:connector/features/engage/domain/usecases/send_push_notification.dart';
 import 'package:connector/features/engage/presentation/bloc/engage_bloc.dart';
+import 'package:connector/features/engage/presentation/bloc/engage_notifier.dart';
 import 'package:connector/features/storage/data/datasources/storage_datasource.dart';
 import 'package:connector/features/storage/data/repositories/project_info_repo_impl.dart';
 import 'package:connector/features/storage/domain/repositories/project_info_repo.dart';
@@ -87,9 +88,16 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SendPushNotification(repo: sl<EngageRepo>()));
 
   // Bloc
-  sl.registerFactory(
+  sl.registerLazySingleton<EngageBloc>(
     () => EngageBloc(
       sendPushNotification: sl<SendPushNotification>(),
+    ),
+  );
+
+  // Change Notifier
+  sl.registerLazySingleton<EngageNotifier>(
+    () => EngageNotifier(
+      engageBloc: sl<EngageBloc>(),
     ),
   );
 

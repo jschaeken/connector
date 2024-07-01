@@ -5,6 +5,7 @@ import 'package:connector/core/error/failures.dart';
 import 'package:connector/features/auth/domain/repositories/auth_repo.dart';
 import 'package:connector/features/engage/data/datasources/engage_datasource.dart';
 import 'package:connector/features/engage/domain/entities/push_result.dart';
+import 'package:connector/features/engage/domain/entities/send_push_params.dart';
 import 'package:connector/features/engage/domain/repositories/engage_repo.dart';
 import 'package:dartz/dartz.dart';
 
@@ -17,6 +18,7 @@ class EngageRepoImpl implements EngageRepo {
   @override
   Future<Either<Failure, PushResult>> sendPush(
     String message,
+    List<SendPushVariable> variables,
     String segment,
   ) async {
     try {
@@ -32,6 +34,7 @@ class EngageRepoImpl implements EngageRepo {
       // call datasource.sendPush with message and tokens
       return await datasource.sendPush(
         message,
+        variables,
         projectPrefixId,
         segment,
       );

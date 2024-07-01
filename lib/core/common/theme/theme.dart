@@ -148,4 +148,11 @@ class ThemeBuilder {
       ],
     );
   }
+
+  static glowBoxShadow(BuildContext context) => BoxShadow(
+        color: Theme.of(context).colorScheme.primary.withOpacity(.5),
+        blurRadius: 10,
+        spreadRadius: 5,
+        offset: const Offset(0, 0),
+      );
 }

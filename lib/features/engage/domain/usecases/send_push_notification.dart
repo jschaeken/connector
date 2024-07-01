@@ -14,6 +14,7 @@ class SendPushNotification implements UseCase<void, SendPushParams> {
   Future<Either<Failure, PushResult>> call(SendPushParams params) async {
     return await repo.sendPush(
       params.message,
+      params.variables,
       params.segment,
     );
   }

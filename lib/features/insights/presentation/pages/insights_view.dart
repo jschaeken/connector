@@ -328,7 +328,6 @@ class InsightCard extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
             blurRadius: 15.5,
             offset: const Offset(0, 6),
-            // spreadRadius: 0,
           ),
         ],
         borderRadius: BorderRadius.circular(20),

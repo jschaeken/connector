@@ -4,7 +4,7 @@ import 'package:connector/features/auth/presentation/pages/auth_settings_view.da
 import 'package:connector/features/automations/presentation/pages/automations_view.dart';
 import 'package:connector/features/design/presentation/pages/design_view.dart';
 import 'package:connector/features/engage/presentation/pages/engage_view.dart';
-import 'package:connector/features/insights/presentation/pages/insights.dart';
+import 'package:connector/features/insights/presentation/pages/insights_view.dart';
 import 'package:connector/features/integrations/presentation/pages/integrations_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

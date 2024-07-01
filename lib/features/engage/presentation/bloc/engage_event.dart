@@ -9,9 +9,11 @@ abstract class EngageEvent extends Equatable {
 
 class SendPushEvent extends EngageEvent {
   final String message;
+  final List<SendPushVariable>? variables;
   final String? segment;
 
-  const SendPushEvent({required this.message, this.segment});
+  const SendPushEvent(
+      {required this.message, required this.variables, this.segment});
 
   @override
   List<Object> get props => [message, segment ?? ''];

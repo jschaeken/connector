@@ -47,6 +47,7 @@ dependencies:
   fl_chart: ^0.68.0
   http: ^1.2.1
   cloud_firestore: ^5.0.2
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

@@ -24,48 +24,67 @@ class _MainAuthViewState extends State<MainAuthView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      buildWhen: (previous, current) {
-        if (previous.runtimeType == AuthUnauthenticated &&
-            current.runtimeType == AuthLoading) {
-          return false;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 600) {
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Text(
+                    'This app is not supported on mobile devices, please use a desktop browser.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    )),
+              ),
+            ),
+          );
         }
-        return true;
-      },
-      builder: (context, state) {
-        return Builder(
-          builder: (context) {
-            switch (state.runtimeType) {
-              case const (AuthInitial):
-                return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              case const (AuthAuthenticated):
-                return const Dash();
-              case const (AuthUnauthenticated):
-                return const LoginView();
-              default:
-                return Scaffold(
-                  body: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('An error occurred',
-                            textAlign: TextAlign.center),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            _getCurrentUser();
-                          },
-                          child: const Text('Retry'),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+        return BlocBuilder<AuthBloc, AuthState>(
+          buildWhen: (previous, current) {
+            if (previous.runtimeType == AuthUnauthenticated &&
+                current.runtimeType == AuthLoading) {
+              return false;
             }
+            return true;
+          },
+          builder: (context, state) {
+            return Builder(
+              builder: (context) {
+                switch (state.runtimeType) {
+                  case const (AuthInitial):
+                    return const Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  case const (AuthAuthenticated):
+                    return const Dash();
+                  case const (AuthUnauthenticated):
+                    return const LoginView();
+                  default:
+                    return Scaffold(
+                      body: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('An error occurred',
+                                textAlign: TextAlign.center),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                _getCurrentUser();
+                              },
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                }
+              },
+            );
           },
         );
       },
